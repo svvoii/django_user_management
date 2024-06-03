@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% if form.errors %}
+	<p>There was an error with the form. Please try again.</p>
+{% endif %}
+
+	<h2>Register</h2>
+	<form action="{% url 'users:register' %}" method="POST">
+
+		{% csrf_token %}
+
+		{{ form.as_p }}
+
+		<button type="submit">Submit</button>
+
+	</form>
+
+{% endblock %}
