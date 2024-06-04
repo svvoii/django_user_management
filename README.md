@@ -30,6 +30,8 @@ in command palette (`Ctrl+Shift+P`), search for `Python: Select Interpreter`, an
 
 To check the path of the virtual environment, run `pipenv --venv`.  
 
+**Note**: If the virtual environment is not activated during the next launch select the environment path in VSCode command pallet once more and relaunch the text editor.  
+
 
 #### ON MACOS (M1):
 
