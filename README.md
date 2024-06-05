@@ -1,8 +1,6 @@
 # User Management Module for ft_transcendence
 
-Django docs: [User authentication in Django](https://docs.djangoproject.com/en/5.0/topics/auth/)
-
-### To setup the environment:
+### To setup the environment for the project:
 
 #### ON LINUX:
 
@@ -59,5 +57,40 @@ pipenv install django
 ```bash
 pipenv shell
 ```
+
+### Setting Up POSTGRESQL:
+
+#### Setting up PostgreSQL database with Heroku (cloud service):
+
+1. Create an account on Heroku.
+
+```bash
+https://www.heroku.com/
+
+https://id.heroku.com/login
+
+email@email.com
+'passsword'
+```
+
+2. Create a new app on Heroku.
+
+```bash
+https://dashboard.heroku.com/apps
+
+New -> Create new app
+```
+**NOTE**: ..was free to create a new app.. free no more..
+
+... gonna change the steps to use local postgresql database...
+
+
+## Some Documentation:
+
+Django docs: [User authentication in Django](https://docs.djangoproject.com/en/5.0/topics/auth/)
+
+How to use Django Widgets to style forms: [Django Widgets](https://docs.djangoproject.com/en/5.0/ref/forms/widgets/)  
+
+3rd party authentication with Django: [allauth](https://docs.allauth.org/en/latest/)  
 
 

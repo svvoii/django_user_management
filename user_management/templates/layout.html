@@ -20,6 +20,7 @@
 		<a href="/" title="HOME">Home</a> |
 		{% if user.is_authenticated %}
 			<a href="{% url 'users:logout' %}" title="LOGOUT">Logout</a> |
+			<span style="float: right;">You are logged in as [ {{ user.username }} ]</span>
 		{% else %}
 			<a href="{% url 'users:login' %}" title="LOGIN">User Login</a> |
 			<a href="{% url 'users:register' %}" title="REGISTER">Registration</a>
