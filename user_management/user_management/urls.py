@@ -25,4 +25,6 @@ urlpatterns = [
 
 	# path('users/', include('django.contrib.auth.urls')), # This line is added to include the built-in django authentication URLs
 	path('users/', include('users.urls')),
+
+	path('accounts/', include('allauth.urls')), # This line is added to include the allauth URLs
 ]

@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}
+	<title>Profile Page</title>
+{% endblock title %}
+
+{% block content %}
+	<h1>This is your profile page. You are logged in as [{{ request.user.username }}]</h1>
+
+	{% comment %} <a href="{% url 'users:edit' %}">Edit Profile</a> {% endcomment %}
+	{% comment %} <a href="{% url 'users:change_password' %}">Change Password</a> {% endcomment %}
+	{% comment %} <a href="{% url 'users:delete' %}">Delete Account</a> {% endcomment %}
+	<a href="{% url 'users:logout' %}">Logout</a>
+
+
+{% endblock content %}

@@ -31,6 +31,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+	'allauth',
+	'allauth.account',
+	'allauth.socialaccount',
+	'allauth.socialaccount.providers.google', # for google provider
+	# 'allauth.socialaccount.providers.oauth2', # for 42 provider
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'user_management.urls'
@@ -128,3 +134,15 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTHENTICATION_BACKENDS = [
+	'django.contrib.auth.backends.ModelBackend',
+	'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SOCIALACCOUNT_PROVIDERS = {} # to add social providers later if needed (not necessary, can be specified in the database)
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # to print emails in the console for testing purposes
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email' # to use email as the authentication method
+ACCOUNT_EMAIL_REQUIRED = True # to require email for registration
