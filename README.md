@@ -1,8 +1,17 @@
-# User Management Module for ft_transcendence
+# User Management in Django
 
-### To setup the environment for the project:
+This tutorial will demonstrate how to manage users in Django. It was made for educational purposes as well as for personal use to prepare the final project of `ft_transcendence` from the `42` main curriculum.  
+In this tutorial I cover the basic environment setup in Django as well as the following topics:  
+- User login and registration
+- User authentication with email and password
+- User authentication with Google (OAuth2.0) with `django-allauth`
+- User profile page
+- Setting up PostgreSQL database instead of the default SQLite3
 
-#### ON LINUX:
+
+## To setup the environment for the project:
+
+### ON LINUX:
 
 1. Install `pipenv`.
 
@@ -31,7 +40,7 @@ To check the path of the virtual environment, run `pipenv --venv`.
 **Note**: If the virtual environment is not activated during the next launch select the environment path in VSCode command pallet once more and relaunch the text editor.  
 
 
-#### ON MACOS (M1):
+### ON MACOS (M1):
 
 Assuming `Homebrew`, `Python3`, `pip3` are already installed.
 
@@ -58,70 +67,18 @@ pipenv install django
 pipenv shell
 ```
 
-### Setting Up POSTGRESQL:
+## Setting Up POSTGRESQL:
 
-#### Setting up PostgreSQL database with Heroku (cloud service):
+### Setting up PostgreSQL database
 
-1. Create an account on Heroku.
-
-```bash
-https://www.heroku.com/
-
-https://id.heroku.com/login
-
-email@email.com
-'passsword'
-```
-
-2. Create a new app on Heroku.
-
-```bash
-https://dashboard.heroku.com/apps
-
-New -> Create new app
-```
-**NOTE**: ..was free to create a new app.. free no more..
-
-... gonna change the steps to use local postgresql database...
-...
-
-### Setting Up `users` app:
-
-#### Creating the `users` app:
-
-1. Create the `users` app.
-
-In the project directory (this repo), run:
-```bash
-python manage.py startapp users
-```
-
-2. Add the `users` app to the `INSTALLED_APPS` in `settings.py`.
-
-```python
-INSTALLED_APPS = [
-	...
-	'users',
-]
-```
-
-3. Add the `users` app to the `urls.py`.
-
-```python
-...
-urlpatterns = [
-	...
-	path('users/', include('users.urls')),
-]
-```
-....
+1. 
 ....
 
-### Setting Up OAuth2.0 with allauth for remote authentication:
+## Setting Up `OAuth2.0` with `django-allauth` for remote authentication:
 
-#### Installing and setting up allauth
+### Installing and setting up allauth
 
-1. Install `django-allauth`.
+1. **Install `django-allauth`.**
 
 In the project directory (this repo), run:
 ```bash
@@ -132,7 +89,7 @@ or
 pip install django-allauth
 ```
 
-2. Adding the required settings in `settings.py`.
+2. **Adding the required settings in `settings.py`.**
 
 - Add `AUTHENTICATION_BACKENDS` to the end of `settings.py`.
 
@@ -165,7 +122,7 @@ MIDDLEWARE = [
 ]
 ```
 
-3. Add the following to the `urls.py`:
+3. **Add the following to the `urls.py`:**
 
 ```python
 urlpatterns = [
@@ -173,7 +130,6 @@ urlpatterns = [
 	path('accounts/', include('allauth.urls')),
 ]
 ```
-
 
 - Add the following lines to the end of the `settings.py`:
 
@@ -183,14 +139,16 @@ SOCIALACCOUNT_PROVIDERS = {} # to add social providers later if needed (not nece
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # to print emails in the console for testing purposes
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email' # to use email as the authentication method
-ACCOUNT_EMAIL_REQUIRED = True # to require email for registration
+ACCOUNT_EMAIL_REQUIRED = True # this will make the email as obligatory field
 ```
 
-At this point we can run the server and register a new user with email and password.  
+*At this point we can run the server and register a new user with email and password.  
 Once this done we can see automatic message in the console that the email was sent to verify the account.  
-We can copy the verification link and paste it in the browser to verify the account. After that we can see in the admin panel that the user is active and that the email is verified.  
+We can copy the verification link and paste it in the browser to complete the verification of the account.  
+After that we can see in the admin panel that given user is active and that the email is verified.*  
 
-4. Adding an examle of the profile page:
+
+4. **Adding an examle of the profile page:**
 
 - In the `users/views.py` adding the following:
 
@@ -227,10 +185,10 @@ urlpatterns = [
 ]
 ```
 
-Once the server is running we can navigate to the `localhost:8000/users/profile/` and see the profile page with the username of the logged in user and a logout link.  
+Once the server is running we can navigate to the `localhost:8000/users/profile/` and see basic profile page with the username of the logged in user and a logout link.  
 
 
-**NOTE**: These are the available pages withing the `allauth` package:
+**NOTE**: *These are the available pages withing the `allauth` package that can be utilised:*
 
 ```text
 01. accounts/ login/ [name='account_login']
@@ -254,9 +212,10 @@ Once the server is running we can navigate to the `localhost:8000/users/profile/
 19. accounts/ social/connections/
 ```
 
-#### Adding authentication via Google:
 
-1. Installing necessary dependencies:
+## Adding authentication via Google:
+
+1. **Installing necessary dependencies:**
 
 ```bash
 pipenv install requests
@@ -267,7 +226,7 @@ pipenv install cryptography
 
 ```
 
-2. Add the following to the `settings.py` `INSTALLED_APPS`:
+2. **Add the following to the `settings.py` `INSTALLED_APPS`:**
 
 ```python
 ...
@@ -278,31 +237,32 @@ INSTALLED_APPS = [
 ]
 ```
 
-3. Adding Social Application in django admin panel:
+3. **Adding Social Application in django admin panel:**
 
 - Go to `localhost:8000/admin/` and login with the superuser credentials.  
 
 Then go to --> `Social applications` --> `Add social application`  
 
-Fill in the following fields:  
-Provider: `Google`
-Name: `Google`
-Client id: `your_client_id`
-Secret key: `your_secret_key`
+*Fill in the following fields:*  
+Provider: `Google`  
+Name: `Google`  
+Client id: `'your_client_id'`  see below how to get it   
+Secret key: `'your_secret_key'` see below how to get it  
 
-- Getting the `client_id` and `secret_key`:
+- Getting `client_id` and `secret_key` from Google Cloud Console:
 
-To get the `client_id` and `secret_key` go to the [Google Cloud Console](https://console.cloud.google.com/).  
+To get the `client_id` and `secret_key` go to your -> [Google Cloud Console](https://console.cloud.google.com/).  
 
 Navigate to `APIs & Services` --> `Credentials` --> `Create credentials` --> `OAuth client ID`  
-Might need to create `NEW PROJECT` if there is no project created yet.  
+
+**NOTE**: *You might need to create `NEW PROJECT` if this is your first time and there are no projecte created yet.*  
 
 With the new project created navigate to `APIs & Services` and click `ENABLE APIS AND SERVICES` and search for `Google+ API` and enable it.  
 
 Then go to `Credentials` and click on `CREATE CREDENTIALS` and select `OAuth client ID`.  
-(If there is no consent screen created yet, create it by clicking on `CONFIGURE CONSENT SCREEN` and fill in the necessary fields.)  
+*(If there is no consent screen created yet, create it by clicking on `CONFIGURE CONSENT SCREEN` and fill in the necessary fields.)*  
 
-Select `Web application` as the application type.  
+When thet is done select `Web application` as the application type.  
 Customize the `Name` if needed.  
 
 Add the following to the `Authorized redirect URIs`:
@@ -310,13 +270,34 @@ Add the following to the `Authorized redirect URIs`:
 ```text
 http://127.0.0.1:8000/accounts/google/login/callback/
 ```
-**NOTE**: must be `127.0.0.1` and not `localhost` !!!
+**NOTE**: *must be `127.0.0.1` and not `localhost` !!!*  
+For further project deployment this will need to be changed to the actual domain name.  
 
 Once you hit `Create` you will get the `client_id` and `secret_key` which you can use to fill in the fields in the django admin panel.  
 
-Once the social application is created we can navigate to the `localhost:8000/accounts/login/` or `localhost:8000/accounts/signup/` and see the `Google` button.  
+Once the social application is created we can navigate to :  
+`localhost:8000/accounts/login/`  
+or  
+`localhost:8000/accounts/signup/`  
+and see the `Google` button which will redirect us to the Google login page.    
 
 4. DONE!
+
+## Adding authentication via 42 API:
+
+1. **Installing necessary dependencies:**  
+
+*(if not already installed)*
+
+```bash
+pipenv install requests
+
+pipenv install PyJWT
+
+pipenv install cryptography
+```
+
+...
 
 
 
